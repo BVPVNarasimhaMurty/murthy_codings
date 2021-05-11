@@ -1,0 +1,40 @@
+import java.util.*;
+import java.lang.*;
+class RangeSum2
+{
+    public static void main(String args[] ) throws Exception 
+    {
+        Scanner sc=new Scanner(System.in);
+        int t;
+        t=sc.nextInt();
+	    while(t>0)
+	    {
+		    int n;
+		    n=sc.nextInt();
+		    int arr[]=new int[n];
+		    for(int i=0;i<n;i++)
+		      arr[i]=sc.nextInt();
+		     int prefix[]=new int[n+1];
+		     prefix[0]=0;
+		    // prefix[1]=arr[0];
+		     for(int i=1;i<=n;i++)
+		     {
+		     	prefix[i]=prefix[i-1]+arr[i-1];
+		     }
+		     for(int i=0;i<=n;i++)
+		       System.out.print(prefix[i]+" ");
+		    int Q;
+		    Q=sc.nextInt();
+		    while(Q>0)
+		    {
+			    int l,r;
+			    l=sc.nextInt();
+               			 r=sc.nextInt();
+			    System.out.println(prefix[r]-prefix[l-1]);
+                			Q--;
+		    }  
+        t--;
+        }
+
+    }
+}
