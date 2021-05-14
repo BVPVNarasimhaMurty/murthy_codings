@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+long long int N=1000001;
+long long int seive[1000001];
+map<int,int>mp;
+void gen_modifiedseive()
+{
+    seive[0]=seive[1]=1;
+    for(int i=2;i<=N;i++)seive[i]=i;
+    for(int i=2;i*i<=N;i++)
+    {
+        if(seive[i]==i)
+        {
+            for(int j=i*i;j<=N;j+=i)
+            {
+                if(seive[j]==j)
+                {
+                    seive[j]=i;
+                }
+            }
+        }
+    }
+    
+}
+
+int main() 
+{
+	 int t;
+    cin>>t;
+    while(t--)
+    {
+        gen_modifiedseive();
+        int x,count=0,k=0;
+        map<int,int>mp;
+        cin>>x;
+        if(x%2!=0)
+            cout<<2<<"^"<<"0"<<"*";
+        while(x!=1)
+        {
+            
+    // cout<<sieve[x]<<" ";
+       
+       mp[seive[x]]++;
+       x=x/seive[x];
+        }
+        for(auto it:mp)
+        { 
+            
+            cout<<it.first<<"^"<<it.second;
+            
+            
+                cout<<"*";
+            
+            
+        }
+		cout<<"\n";
+    }
+	return 0;
+}
