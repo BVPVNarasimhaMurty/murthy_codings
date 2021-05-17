@@ -1,0 +1,13 @@
+class Solution
+{
+public:
+    int setKthBit(int N, int K)
+    {
+        // Write Your Code here
+        int bit=1<<K;
+        N=N|bit;
+        return N;
+        
+    }
+    
+};
