@@ -1,0 +1,17 @@
+#include<iostream>
+using namespace std;
+int main()
+{
+    int q;
+    cin>>q;
+    while(q--)
+    {
+        int n;
+        cin>>n;
+        const unsigned int M = 1000000007;
+        unsigned long long f = 1;
+        for (int i = 1; i <= n; i++)
+            f = (f*i)%M;  
+        cout<<f<<"\n";
+    }
+}
