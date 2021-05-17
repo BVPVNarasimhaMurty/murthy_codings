@@ -1,0 +1,15 @@
+class Solution {
+  public:
+    long long int convertEvenBitToZero(long long int n)
+    {
+      int t= 0;
+       int m = 0;
+       for (int x = n; x!=0; x = x >> 2) 
+       {
+           if (x & 1)
+            t =t+ (1 << m);
+           m =m+2;
+       }
+         return n - t;
+    }
+};
