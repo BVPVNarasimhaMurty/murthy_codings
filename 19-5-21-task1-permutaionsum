@@ -1,0 +1,39 @@
+class Solution {
+public:
+    vector<vector<int>> ans;
+    void vectorcombination(int i,int n,int N,vector<int>& candidates,vector<int>&ds)
+    {
+        if(i==n)
+        {
+            if(N==0)
+            {
+            ans.push_back(ds);
+            return;
+            }
+        }
+    for(;i<n;i++)
+    { 
+       if(candidates[i]<=N)
+       {
+                ds.push_back(candidates[i]);
+                vectorcombination(i,n,N-candidates[i],candidates,ds);
+                ds.pop_back();
+           
+           
+       }
+       else{ 
+          vectorcombination(i+1,n,N,candidates,ds);
+           break;
+       }
+       }
+    }
+
+    
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<int>v;
+        int n=candidates.size();
+        sort(candidates.begin(), candidates.end());
+        vectorcombination(0,n,target,candidates,v);
+        return ans;
+    }
+};
