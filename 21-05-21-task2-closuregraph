@@ -1,0 +1,63 @@
+#include <iostream>
+#include <vector>
+#include <cstring>
+#include <iomanip>
+using namespace std;
+#define N 4
+struct Edge {
+    int src, dest;
+};
+class Graph
+{
+public:
+    vector<int> adjList[N];
+     Graph(vector<Edge> const &edges)
+    {
+       for (Edge edge: edges)
+        {
+            int src = edge.src;
+            int dest = edge.dest;
+ 
+            adjList[src].push_back(dest);
+        }
+    }
+};
+ 
+void DFS(Graph const &graph, bool C[N][N], int root, int descendant)
+{
+    for (int child: graph.adjList[descendant])
+    {
+        if (!C[root][child])
+        {
+            C[root][child] = true;
+            DFS(graph, C, root, child);
+        }
+    }
+}
+ 
+int main()
+{
+      vector<Edge> edges = {
+        { 0, 2 }, { 1, 0 }, { 3, 1 }
+    };
+ 
+     Graph graph(edges);
+ 
+      bool C[N][N];
+    memset(C, false, sizeof C);
+ 
+    for (int v = 0; v < N; v++)
+    {
+        C[v][v] = true;
+        DFS(graph, C, v, v);
+ 
+           for (int u = 0; u < N; u++) {
+            cout << left << setw(4) << C[v][u];
+        }
+        cout << endl;
+    }
+ 
+    return 0;
+}
+
+
