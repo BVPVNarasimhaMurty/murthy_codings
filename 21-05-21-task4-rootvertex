@@ -1,0 +1,71 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+struct Edge {
+    int src, dest;
+};
+ class Graph
+{
+public:
+    vector<vector<int>> adjList;
+     Graph(vector<Edge> const &edges, int N)
+    {
+       adjList.resize(N);
+         for (auto &edge: edges) {
+            adjList[edge.src].push_back(edge.dest);
+        }
+    }
+};
+ 
+void DFS(Graph const &graph, int u, vector<bool> &visited)
+{
+     visited[u] = true;
+     for (int v: graph.adjList[u])
+    {
+          if (!visited[v]) {
+            DFS(graph, v, visited);
+        }
+    }
+}
+ int findRootVertex(Graph const &graph, int N)
+{
+    vector<bool> visited(N);
+    int v = 0;
+    for (int i = 0; i < N; i++)
+    {
+        if (!visited[i])
+        {
+            DFS(graph, i, visited);
+            v = i;
+        }
+    }
+     fill(visited.begin(), visited.end(), false);
+     DFS(graph, v, visited);
+   for (int i = 0; i < N; i++)
+    {
+        if (!visited[i]) {
+            return -1;
+        }
+    }
+     return v;
+}
+ 
+int main()
+{
+      vector<Edge> edges = {
+        {0, 1}, {1, 2}, {2, 3}, {3, 0}, {4, 3}, {4, 5}, {5, 0}
+    };
+ 
+     int N = 6;
+     Graph graph(edges, N);
+     int root = findRootVertex(graph, N);
+     if (root != -1) {
+        cout << "The root vertex is " << root << endl;
+    }
+    else {
+        cout << "The root vertex does not exist" << endl;
+    }
+ 
+    return 0;
+}
